@@ -78,13 +78,7 @@
         </div>
       </div>
     </form>
-      <div class="row reset">
-        <br>
-        <div class="col-sm-12 text-left">
-          <a href="${pageContext.request.contextPath}/reviewBoardList.do" class="btn btn-default" role="button">취소</a>
-          <a href="${pageContext.request.contextPath}/reviewBoardList.do" class="btn btn-default" role="button">리뷰목록</a>
-        </div>
-      </div>
+    
     </div><!--container-->
 </body>
 </html>
