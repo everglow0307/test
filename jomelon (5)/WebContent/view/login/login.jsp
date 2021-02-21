@@ -74,7 +74,6 @@
                         	<a href="join.do" >회원가입</a>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="findId.do" >아이디찾기</a>
                         <a href="findPassword.do">비밀번호찾기</a>
                     </div>
                 </div>
