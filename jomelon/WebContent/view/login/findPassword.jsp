@@ -23,12 +23,17 @@
 //랜덤으로 보낸 인증번호 저장 변수
 var ranAuthNo = 0;
 
+//emailCheck() ajax결과값 저장할 전역변수
+var isEmailCheck = false;
+
 //디비에 저장된 이메일인지 확인하기
 function emailCheck(){
 	 var email = $('#userEmail').val();
 	 if(email==""){
+		 isEmailCheck = false;
 		 alert("이메일을 입력해주세요.");
 	 }else if(!isUserEmail()){
+		 isEmailCheck = false;
 		 alert("이메일 형식을 확인해주세요.");
 	 }else{
 		 $.ajax({
@@ -37,16 +42,16 @@ function emailCheck(){
 		 type: "post",
 		 success:function(data){
 			 if (data == "0") { 
-					alert("입력하신 정보와 일치하는 회원이 없습니다.");
-					return false;
+				 isEmailCheck = false;	
+				 alert("입력하신 정보와 일치하는 회원이 없습니다.");
 				} else if (data == "1") {
+					isEmailCheck = true;
 					alert("인증가능한 이메일입니다.");
-					return true;
 				}
 		 },
 			error:function(){
+				isEmailCheck = false;
 				console.log("ajax통신실패!");
-				return false;
 			}
 		 });
 	}
@@ -72,8 +77,8 @@ function sendAuthNo(){
 var email = $('#userEmail').val();
 if(email==""){
 	 alert("이메일을 입력해주세요.");
-}else if(!emailCheck()){
-	
+}else if(!isEmailCheck){
+	alert("이메일 먼저 확인해주세요.");
 }else{
 	 $.ajax({
 		 url: "${pageContext.request.contextPath}/sendAuthNo.do",
@@ -106,9 +111,9 @@ if(authNo==""){
 		 data: {inputAuthNo:inputAuthNo,ranAuthNo:ranAuthNo,inputEmail:inputEmail},
 		 type:"post",
 		 success: function(data){
-			 if(data.confirm=="false"){
+			 if(!data.confirm){
 				alert("인증번호가 일치하지 않습니다.");
-			}else if(data.confirm=="true"){
+			}else if(data.confirm){
 				location.href="${pageContext.request.contextPath}/findPasswordCompl.do";
 			}
 		 },
@@ -125,34 +130,6 @@ function findPassCancel(){
 	location.href="${pageContext.request.contextPath}/login.do";
 }
 
-
-
-
-
-$(function(){
-	
-	
-	
-	//이메일있는지 확인하기
-	
-	 //$('#emailCheck').on('click',function(){
-		
-	// }); 
-	 
-	 //인증번호 전송
-	 $('#sendAuthNo').on('click',function(){
-		
-	 });
-	
-	$('#authNoConfirm').on('click',function(){
-		
-	});
-	
-	
-	
- });
-
-
 </script>
 <div class="container">
 	<br>
@@ -161,8 +138,8 @@ $(function(){
 				<!--이메일-->
 				<h5>이메일</h5>
 				<input type="email" id="userEmail" class="form-control" onkeypress="isUserEmail();" /> <br>
-				<input type="button" class="btn btn-dark" value="이메일 확인" id="emailCheck" onclick="emailCheck();">
-				<input type="button" class="btn btn-dark" value="인증번호 전송" id="sendAuthNo" onclick="sendAuthNo();" />
+				<input type="button" class="btn btn-dark" value="이메일 확인" onclick="emailCheck();">
+				<input type="button" class="btn btn-dark" value="인증번호 전송" onclick="sendAuthNo();" />
 				<span id="emailResult"></span>
 				<br>
 				<br>
@@ -170,7 +147,7 @@ $(function(){
 				<h5>인증번호</h5>
 				<input type="text" name="authNo" class="form-control"
 					placeholder="인증번호 6자리 숫자 입력" id="authNo"/> <br>
-				<button type="submit" class="btn btn-dark" id="authNoConfirm" onclick="isAuthNo();">확인</button>
+				<button type="submit" class="btn btn-dark" onclick="isAuthNo();">확인</button>
 				<button class="btn btn-dark" id="cancel" onclick="findPassCancel();">취소</button>
 				
 		</div>

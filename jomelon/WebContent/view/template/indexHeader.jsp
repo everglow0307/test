@@ -22,7 +22,7 @@
 					<li><a href="brandintro.do">JoMelon 소개</a></li>
 					<li><a href="#">Gallay</a></li>
 					<li><a href="#">Jo Melon 소식</a></li>
-					<li><a href="#">사용자 팁</a></li>
+					<li><a href="${pageContext.request.contextPath}/tipboard/BoardList.jsp">사용자 팁</a></li>
 				</ul></li>
 			<li class="dropdown"><a href="#" class="dropbtn">제품구매</a>
 				<ul class="dropdown-content">
@@ -35,15 +35,15 @@
 			<li class="dropdown"><a href="#" class="dropbtn">고객센터</a>
 				<ul class="dropdown-content">
 					<li><a href="#">프로모션</a></li>
-					<li><a href="#">공지사항</a></li>
-					<li><a href="#">Q&A</a></li>
+					<li><a href="${pageContext.request.contextPath}/noticeList.do">공지사항</a></li>
+					<li><a href="${pageContext.request.contextPath}/QnAList.do">Q&A</a></li>
 					<li><a href="#">FAQ</a></li>
 				</ul></li>
-			<li class="dropdown"><a href="#" class="dropbtn">사용후기</a>
+			<li class="dropdown"><a href="reviewBoardList.do" class="dropbtn">사용후기</a>
 				<ul class="dropdown-content">
-					<li><a href="#">텍스트리뷰</a></li>
-					<li><a href="#">포토리뷰</a></li>
-					<li><a href="#">소셜리뷰</a></li>
+					<li><a href="${pageContext.request.contextPath}/reviewBoardList.do">텍스트리뷰</a></li>
+					<li><a href="${pageContext.request.contextPath}/reviewBoardList.do">포토리뷰</a></li>
+					<li><a href="${pageContext.request.contextPath}/reviewBoardList.do">소셜리뷰</a></li>
 				</ul></li>
 			<c:if test="${login}">
 				<li class="right"><a href="myinfo.do">나의정보</a></li>

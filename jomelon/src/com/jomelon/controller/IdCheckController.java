@@ -18,10 +18,7 @@ public class IdCheckController extends HttpServlet {
 
 	private UserService userService = new UserServiceImpl();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String inputId = request.getParameter("inputId").trim();
@@ -33,23 +30,6 @@ public class IdCheckController extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(result+"");
-		
-//		request.setCharacterEncoding("UTF-8");
-//		
-//		String user_id = request.getParameter("user_id").trim();
-//		System.out.println("�Է°� : "+user_id);
-//		
-//		
-//		int result = userService.idCheck(user_id);
-//		//����� Ȯ��
-//		System.out.println(result);
-//		
-//		//���� ������ ���� ���ڵ� ó��
-//		response.setCharacterEncoding("UTF-8");
-//		
-//		PrintWriter out = response.getWriter();
-//		out.print(result+"");
-		
 
 	}
 

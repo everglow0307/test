@@ -16,6 +16,7 @@ public class LogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		//세션에 저장한 정보 삭제
 		session.invalidate();
 		
 		response.sendRedirect("main.do");

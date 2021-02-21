@@ -23,17 +23,11 @@ public class FindPasswordController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("get메소드 도착");
 		request.setAttribute("contentPage","/view/login/findPassword.jsp");
 		request.getRequestDispatcher("/view/template/main.jsp").forward(request, response);
 		
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-	}
-	
-	
+
 
 }

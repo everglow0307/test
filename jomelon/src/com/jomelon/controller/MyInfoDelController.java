@@ -21,12 +21,7 @@ import com.jomelon.service.impl.UserServiceImpl;
 public class MyInfoDelController extends HttpServlet {
 	private UserService userService = new UserServiceImpl();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
-	}
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션에서 아이디정도 가져욤.
 		UserVO user = userService.getMyInfoPw(request);
@@ -36,6 +31,9 @@ public class MyInfoDelController extends HttpServlet {
 				
 		//회원 탈퇴  성공
 		if(result>0) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
 			request.setAttribute("contentPage","/view/myinfo/myInfoDelSuccess.jsp");
 			request.getRequestDispatcher("/view/template/main.jsp").forward(request, response);
 		}else {

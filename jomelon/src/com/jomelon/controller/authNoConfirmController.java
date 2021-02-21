@@ -14,23 +14,24 @@ import com.jomelon.domain.UserVO;
 import com.jomelon.service.UserService;
 import com.jomelon.service.impl.UserServiceImpl;
 
-/**
- * Servlet implementation class authNoConfirmController
- */
+
 @WebServlet("/authNoConfirm.do")
 public class authNoConfirmController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
+	
 	UserService uservice = new UserServiceImpl();
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("contentPage", "/view/login/findPasswordCompl.jsp");
 		request.getRequestDispatcher("/view/template/main.jsp").forward(request,response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//메일 보낸 인증번호
 		int ranAuthNo = Integer.parseInt(request.getParameter("ranAuthNo"));
+		//사용자가 입력한 인증번호
 		int inputAuthNo = Integer.parseInt(request.getParameter("inputAuthNo"));
 		
 		JSONObject json = new JSONObject();
@@ -39,14 +40,13 @@ public class authNoConfirmController extends HttpServlet {
 			String userEmail = request.getParameter("inputEmail").trim();
 			//인증번호 일치 시 이메일 값으로 dao연결해서 저장된 비밀번호 가져와서 결과값 보내기
 			UserVO user = uservice.emailCheck(userEmail);
-			String password = user.getUserPw();
 
-			//session에 비밀번호 저장
+			//session에 고객정보 저장
 			HttpSession session = request.getSession();
-			session.setAttribute("password",password);
-			json.put("confirm", "true");
+			session.setAttribute("u",user);
+			json.put("confirm", true);
 		}else {
-			json.put("confirm", "false");
+			json.put("confirm", false);
 		}
 		response.setContentType("application/json; charset=UTF-8");
 		response.getWriter().append(json.toJSONString());

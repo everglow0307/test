@@ -1,91 +1,77 @@
 package com.jomelon.common.dbutil;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
+import java.sql.Statement;
+import java.util.Properties;
 
 public class JDBCTemplate {
-	
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USERNAME= "SEMI";
-	private static final String PASSWORD= "semi"; 
-		
-	private static Connection conn = null;
-
-	private JDBCTemplate() { }
-
+	public JDBCTemplate() {}
 	public static Connection getConnection() {
-		
-		if(conn == null) {
-			try {
-				Class.forName(DRIVER);
-				conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
-		
-		return conn; 
-	}
-	
-	public static void commit(Connection conn) {
+		Connection conn = null;
+		Properties prop= new Properties();
 		
 		try {
-			if( conn!= null && !conn.isClosed() ) { 
-				conn.commit(); 
-			}
-		} catch (SQLException e) {
+			String currentPath = JDBCTemplate.class.getResource("./").getPath();
+			prop.load(new BufferedReader(new FileReader(currentPath+"driver.properties")));
+			Class.forName(prop.getProperty("driver"));
+			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("user"),prop.getProperty("pwd"));
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	public static void rollback(Connection conn) {
-		
-		try {
-			if(conn!=null && !conn.isClosed()) {
-				conn.rollback();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+		return conn;
+	} 
 	
 	public static void close(Connection conn) {
 		try {
-			if(conn != null && !conn.isClosed()) {
+			if(conn!=null&&!conn.isClosed()) {
 				conn.close();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void close(PreparedStatement ps) {
-		try {
-			if(ps != null && !ps.isClosed()) {
-				ps.close();
-			}
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void close(ResultSet rs) {
+	public static void close(Statement stmt) {
 		try {
-			if(rs != null && !rs.isClosed()) {
-				rs.close();
+			if(stmt!=null&&!stmt.isClosed()) {
+				stmt.close();
 			}
-		} catch (SQLException e) {
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
-		
+	
+	public static void close(ResultSet rset) {
+		try {
+			if(rset!=null&&!rset.isClosed()) {
+				rset.close();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void commit(Connection conn) {
+		try {
+			if(conn!=null&&!conn.isClosed()) {
+				conn.commit();;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void rollback(Connection conn) {
+		try {
+			if(conn!=null&&!conn.isClosed()) {
+				conn.rollback();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

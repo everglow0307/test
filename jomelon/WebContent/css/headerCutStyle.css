@@ -19,3 +19,7 @@ li.dropdown { display: inline-block; margin-right: 50px;}
 .dropdown-content a { color: white; text-decoration: none; text-align: center; display: block;}
 .dropdown-content a:hover {color: wheat;}
 .dropdown:hover .dropdown-content {display: block;}
+<link rel="stylesheet" 
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+crossorigin="anonymous">

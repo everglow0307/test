@@ -40,6 +40,10 @@ public class LoginController extends HttpServlet {
 				// result 2: 관리자로그인 / result 1: 사용자로그인
 			if(result==2) {	
 				//결과값 2 관리자로그인
+				user = userservice.Info(user);
+				session.setAttribute("adminlogin", true);
+				session.setAttribute("userInfo", user);
+				
 				request.getRequestDispatcher("/view/template/admin/mainAdmin.jsp").forward(request,response);
 				
 			}else if (result==1) {
@@ -47,28 +51,15 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("login", true);
 				session.setAttribute("userInfo", user);
 				
-				//꺄ㅑㅑㅑㅑㅑㅑ
 				session.setAttribute("id", user.getUserId());   
 
-
-				request.getRequestDispatcher("/view/template/main.jsp").forward(request,response);
+				request.getRequestDispatcher("/view/template/realMain.jsp").forward(request,response);
 				
 			}else {
 				session.setAttribute("loginerror",true);
 				request.getRequestDispatcher("/view/login/login.jsp").forward(request,response);
 			}
 			
-//			if(result>0) {	
-//				user = userservice.Info(user);
-//				session.setAttribute("login", true);
-//				session.setAttribute("userInfo", user);
-//				request.getRequestDispatcher("/view/template/main.jsp").forward(request,response);
-//			}else if (result==-1) {
-//				request.getRequestDispatcher("/view/template/admin/mainAdmin.jsp").forward(request,response);
-//			}else {
-//				session.setAttribute("loginerror",true);
-//				request.getRequestDispatcher("/view/login/login.jsp").forward(request,response);
-//			}
 			
 		}
 			

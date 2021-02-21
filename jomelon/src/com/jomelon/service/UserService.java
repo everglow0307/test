@@ -18,7 +18,6 @@ public interface UserService {
 	//로그인 성공한 유저 정보 가져오기
 	UserVO Info(UserVO user);
 	
-	//-----------------------------------
 	//아이디 체크
 	int idCheck(String inputId);
 	
@@ -40,5 +39,8 @@ public interface UserService {
 	
 	//메일전송(배열[0]-인증번호값,배열[1]-메일전송여부)
 	int[] sendUserMailAuthNo(String email);
+	
+	//비밀번호찾기용 - 비밀번호만 수정
+	int userPasswordUpdate(HttpServletRequest req);
 	
 }

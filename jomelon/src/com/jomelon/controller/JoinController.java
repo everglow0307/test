@@ -20,13 +20,14 @@ public class JoinController extends HttpServlet {
     
 	private UserService userService = new UserServiceImpl();
   
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//request.setAttribute("contentPage","/view/join/join.jsp");
-		request.getRequestDispatcher("/view/join/join.jsp").forward(request, response);
-		
+		request.setAttribute("contentPage","/view/join/join.jsp");
+		request.getRequestDispatcher("/view/template/main.jsp").forward(request, response);
 		
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    
 		//회원가입

@@ -9,16 +9,16 @@
                 <strong>Your browser does not support the video tag.</strong>
               </video>
         <header>
-            <p class="jomel"><a href="main.do">Jo Melone</a></p>
+            <p class="jomel"><a href="main.do">Jo Melon</a></p>
         </header>
         <nav>
             <ul class="topnav">
                 <li class="dropdown">
                     <a href="#home" class="dropbtn">브랜드소개</a>
                     <ul class="dropdown-content">
-                        <li><a href="brandintro.do">JoMelone 소개</a></li>
+                        <li><a href="brandintro.do">JoMelon 소개</a></li>
                         <li><a href="#">Gallay</a></li>
-                        <li><a href="#">JoMelone 소식</a></li>
+                        <li><a href="#">JoMelon 소식</a></li>
                         <li><a href="#">사용자 팁</a></li>
                       </ul>
                 </li>
@@ -36,15 +36,15 @@
                     <a href="#contact" class="dropbtn">고객센터</a>
                     <ul class="dropdown-content">
                         <li><a href="#">프로모션</a></li>
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">Q&A</a></li>
+                        <li><a href="${pageContext.request.contextPath}/noticeList.do">공지사항</a></li>
+                        <li><a href="${pageContext.request.contextPath}/QnAList.do">Q&A</a></li>
                         <li><a href="#">FAQ</a></li>
                       </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#contact" class="dropbtn">사용후기</a>
+                    <a href="reviewBoardList.do" class="dropbtn">사용후기</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">텍스트리뷰</a></li>
+                        <li><a href="${pageContext.request.contextPath}/reviewBoardList.do">텍스트리뷰</a></li>
                         <li><a href="#">포토리뷰</a></li>
                         <li><a href="#">소셜리뷰</a></li>
                       </ul>

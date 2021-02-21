@@ -2,6 +2,7 @@ package com.jomelon.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,7 @@ public class MyInfoController extends HttpServlet {
 		
 		UserVO userInfo = userService.getUserInfo(request);
 		request.setAttribute("u", userInfo);
+		
 		
 		//비밀번호 일치시  유저정보가져와서 회원정보페이지로 전달
 		if(result ==0) {

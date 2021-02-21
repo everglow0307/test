@@ -35,12 +35,9 @@ public class SendEmailAuthNoController extends HttpServlet{
 	UserService uservice = new UserServiceImpl();
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
-		
-	}
-	
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException  {
+		
+		//사용자가 입력한 이메일
 		String inputEmail = req.getParameter("inputEmail");
 		
 		//result[0]-인증번호 , result[1]-메일전송여부

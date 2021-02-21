@@ -23,8 +23,8 @@ a {
 <body>
 <div class="container">
 <br><br>
-<h3 class="form-row justify-content-center">회원정보 탈퇴완료</h3>
-<h3 class="form-row justify-content-center"><a style="" href="main.do">메인화면으로</a></h3>
+<h3 class="form-row justify-content-center">회원정보 탈퇴완료</h3><br>
+<h1 class="form-row justify-content-center"><a style="" href="main.do">메인화면으로 이동</a></h1>
 <br>
 </div>
 

@@ -8,7 +8,7 @@
 <title>회원가입</title>
 <!-- Bootstrap4 -->
 <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script
@@ -71,7 +71,6 @@
 </head>
 
 <body>
-<jsp:include page="/view/template/headerCut.jsp"/>
 	<br>
 	<div class="container">
 		<div class="row">
@@ -132,7 +131,7 @@
 			<div class="form-row justify-content-center">
 				<div class="col-lg-10">
 					<input type="button" class="btn btn-dark" value="아이디 중복확인"
-						id="idDupliCheck" />
+						id="idDupliCheck" onclick="fnIdDupliCheck()" />
 
 					<!--▶ span 를 통해 경고문이 들어갈 공간 만들어 놓기. -->
 					<span class="col-lg-10" id="idCheck"></span>
@@ -140,46 +139,51 @@
 			</div>
 
 			<script type="text/javascript">
-				
-					$("#idDupliCheck").on('click',function() {
-						var inputId = $("#inputId").val();
-						if (inputId == "") {
-							$("#idCheck").text("아이디를 입력해주세요.");
-							$("#idCheck").css("color", "red");
-						} else if (!isUserId()) {
-							$("#idCheck").text("아이디를 확인해주세요.");
-							$("#idCheck").css("color", "red");
-						} else if (isUserId()) {
-						// ajax호출
-							$.ajax({
-								url : "${pageContext.request.contextPath}/idCheck.do",
-								// data : 요청 시 전달할 파라미터 설정
-								data : "inputId="+ inputId, // key=input / value= var input에 저장된 값.
-								// key: value
-								// type : 전송방식 (GET/ POST)
-								type : "post",
-								// success : Ajax 통신 성공 시 처리할 함수를 지정하는 속성
-								//  매개변수명 임의 지정 가능
-								success : function(data) {
-									console.log("1=중복o /0=중복 x : "+ data);
-									console.log("1=중복o /0=중복 x : "+ data) // data매개변수 : 서버에서 응담이 왔을 떄 그 값이 저장되는 변수
-									if (data == "0") { // 문자열로 받는것 주의!!
-										$("#idCheck").text("사용가능한 아이디 입니다.");
-										$("#idCheck").css("color","blue");
-									} else if (data == "1") {
-										$("#idCheck").text("이미 사용중인 아이디 입니다.");
-										$("#idCheck").css("color","red");
-										$("#idCheck").val("");
-									}
-								},
-								// error : Ajax 통신 실패시 처리할 함수를 지정한속성
-								error : function() {
-									console.log("Ajax 통신 실패!");
+			var idDup = false;
+			
+				function fnIdDupliCheck(){
+					var inputId = $("#inputId").val();
+					if (inputId == "") {
+						$("#idCheck").text("아이디를 입력해주세요.");
+						$("#idCheck").css("color", "red");
+						idDup=false;
+					} else if (!isUserId()) {
+						$("#idCheck").text("아이디를 확인해주세요.");
+						$("#idCheck").css("color", "red");
+						idDup=false;
+					} else {
+					// ajax호출
+						$.ajax({
+							url : "${pageContext.request.contextPath}/idCheck.do",
+							// data : 요청 시 전달할 파라미터 설정
+							data : "inputId="+ inputId, // key=input / value= var input에 저장된 값.
+							// key: value
+							// type : 전송방식 (GET/ POST)
+							type : "post",
+							// success : Ajax 통신 성공 시 처리할 함수를 지정하는 속성
+							//  매개변수명 임의 지정 가능
+							success : function(data) {
+								console.log("1=중복o /0=중복 x : "+ data);
+								console.log("1=중복o /0=중복 x : "+ data) // data매개변수 : 서버에서 응담이 왔을 떄 그 값이 저장되는 변수
+								if (data == "0") { // 문자열로 받는것 주의!!
+									$("#idCheck").text("사용가능한 아이디 입니다.");
+									$("#idCheck").css("color","blue");
+									idDup=true;
+								} else if (data == "1") {
+									$("#idCheck").text("이미 사용중인 아이디 입니다.");
+									$("#idCheck").css("color","red");
+									$("#idCheck").val("");
+									idDup=false;
 								}
-							});//ajax호출닫기
-						}//else if문 닫기
-					});//onclick이벤트 닫기
-				
+							},
+							// error : Ajax 통신 실패시 처리할 함수를 지정한속성
+							error : function() {
+								console.log("Ajax 통신 실패!");
+								idDup=false;
+							}
+						});//ajax호출닫기
+					}//else if문 닫기
+				}//function 닫기
 			</script>
 			<br>
 			<!--비밀번호-->
@@ -230,51 +234,57 @@
 			<div class="form-row justify-content-center">
 				<div class="col-lg-10">
 					<input type="button" class="btn btn-dark" value="이메일 중복확인"
-						id="emailDupliCheck" />
+						id="emailDupliCheck" onclick="fnEmailDupliCheck()" />
 					<!--▶ span 를 통해 경고문이 들어갈 공간 만들어 놓기. -->
 					<span class="col-lg-10" id="emailCheck"></span>
 				</div>
 			</div>
 			<script type="text/javascript">
-				$(function() {
-					$("#emailDupliCheck").on('click',function() {
-						var inputEmail = $("#inputEmail").val();
-						if (inputEmail == "") {
-							$("#emailCheck").text("이메일 입력해주세요.");
-							$("#emailCheck").css("color", "red");
-						} else if (!isUserEmail()) {
-							$("#emailCheck").text("이메일을 확인해주세요.");
-							$("#emailCheck").css("color", "red");
-						} else if (isUserEmail()) {
-						// ajax호출
-							$.ajax({
-								url : "${pageContext.request.contextPath}/emailCheck.do",
-								// data : 요청 시 전달할 파라미터 설정
-								data : "inputEmail="+ inputEmail, // key=input / value= var input에 저장된 값.
-								// key: value
-								// type : 전송방식 (GET/ POST)
-								type : "post",
-								// success : Ajax 통신 성공 시 처리할 함수를 지정하는 속성
-								//  매개변수명 임의 지정 가능
-								success : function(data) {
-									console.log("1=중복o /0=중복 x : "+ data);
-									console.log("1=중복o /0=중복 x : "+ data) // data매개변수 : 서버에서 응담이 왔을 떄 그 값이 저장되는 변수
-									if (data == "0") { // 문자열로 받는것 주의!!
-										$("#emailCheck").text("사용가능한 이메일입니다.");
-										$("#emailCheck").css("color","blue");
-									} else if (data == "1") {
-										$("#emailCheck").text("이미 사용중인 이메일입니다.");
-										$("#emailCheck").css("color","red");
-									}
-								},
-								// error : Ajax 통신 실패시 처리할 함수를 지정한속성
-								error : function() {
-									console.log("Ajax 통신 실패!");
+			var emailDup = false;
+			
+				function fnEmailDupliCheck(){
+					var inputEmail = $("#inputEmail").val();
+					if (inputEmail == "") {
+						$("#emailCheck").text("이메일 입력해주세요.");
+						$("#emailCheck").css("color", "red");
+						emailDup=false;
+					} else if (!isUserEmail()) {
+						$("#emailCheck").text("이메일을 확인해주세요.");
+						$("#emailCheck").css("color", "red");
+						emailDup=false;
+					} else if (isUserEmail()) {
+					// ajax호출
+						$.ajax({
+							url : "${pageContext.request.contextPath}/emailCheck.do",
+							// data : 요청 시 전달할 파라미터 설정
+							data : "inputEmail="+ inputEmail, // key=input / value= var input에 저장된 값.
+							// key: value
+							// type : 전송방식 (GET/ POST)
+							type : "post",
+							// success : Ajax 통신 성공 시 처리할 함수를 지정하는 속성
+							//  매개변수명 임의 지정 가능
+							success : function(data) {
+								console.log("1=중복o /0=중복 x : "+ data);
+								console.log("1=중복o /0=중복 x : "+ data) // data매개변수 : 서버에서 응담이 왔을 떄 그 값이 저장되는 변수
+								if (data == "0") { // 문자열로 받는것 주의!!
+									$("#emailCheck").text("사용가능한 이메일입니다.");
+									$("#emailCheck").css("color","blue");
+									emailDup=true;
+								} else if (data == "1") {
+									$("#emailCheck").text("이미 사용중인 이메일입니다.");
+									$("#emailCheck").css("color","red");
+									emailDup=false;
 								}
-							});//ajax호출닫기
-						}//else if문 닫기
-					});//onclick이벤트 닫기
-				});//onload닫기
+							},
+							// error : Ajax 통신 실패시 처리할 함수를 지정한속성
+							error : function() {
+								console.log("Ajax 통신 실패!");
+								emailDup=false;
+							}
+						});//ajax호출닫기
+					}//else if문 닫기
+				}
+					
 			</script>
 			<br>
 			<!--우편번호-->
@@ -388,13 +398,6 @@
 			}
 		}
 
-		function idDupliCheck() {
-			var inputId = $("#inputId").val();
-
-			if (isUserId()) {
-
-			}
-		}
 
 		//비밀번호 검사(정규식)
 		function isUserPw() {
@@ -530,11 +533,19 @@
 							alert("비밀번호를 다시 확인해주세요.");
 							pass.focus();
 							return false;
-						} else if (!isUserEmail) {
+						} else if (!isUserEmail()) {
 							alert("이메일을 다시 확인해주세요.");
 							email.focus();
 							return false;
-						} else {
+						} else if(!idDup){
+							alert("아이디 중복을 확인해주세요.");
+							id.focus();
+							return false;
+						}else if(!emailDup){
+							alert("이메일 중복을 확인해주세요.");
+							email.focus();
+							return false;
+						}else{
 							return true;
 						}
 					});

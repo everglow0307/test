@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,7 +219,7 @@ a {
 					<label for="inputBirth"><strong>생년월일</strong></label> <input
 						type="date" class="form-control" id="inputBirth"
 						data-rule-required="true" maxlength="40"
-						name="userBirth">
+						name="userBirth" value="${u.getUserBirth() }">
 				</div>
 			</div>
 			

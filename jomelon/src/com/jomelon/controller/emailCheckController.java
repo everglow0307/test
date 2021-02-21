@@ -34,6 +34,7 @@ public class emailCheckController extends HttpServlet{
 		String inputEmail = request.getParameter("inputEmail").trim();
 		System.out.println("입력값: "+inputEmail);
 		
+		//디비에 저장된 이메일인지 확인하고 유저정보 가져옴.
 		UserVO user = userService.emailCheck(inputEmail);
 		
 		if(user==null) {
