@@ -17,8 +17,8 @@ public class IndexController {
 	public ModelAndView index(ModelAndView modelAndView) {
 		// ModelAndView 데이터, view 위치를 저장하는 객체
 		// Model 데이터만 저장하는 객체
-		logger.debug("index 실행");
 		
+		modelAndView.addObject("hi");
 		modelAndView.addObject("myMessage","spring 첫 테스트"); //setAttribute와 비슷한 개념
 		modelAndView.setViewName("layout");
 		
